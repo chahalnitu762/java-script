@@ -1,0 +1,74 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>tanu</h1>
+    <h1>sahil</h1>
+    <h3>muskan</h3>
+    <h3>prachi</h3>
+    <h2>tanisha</h2>
+    <h3>payal</h3>
+    <h2>nisha</h2>
+
+ <button onclick="topper()">topper</button>   
+<button onclick="average()">average</button>
+<button onclick="weak()">weak</button>
+
+
+<script>
+ function topper(){
+ const topper=document.getElementsByTagName("h1")
+
+   for(let i=0;i<topper.length;i++ ){
+  topper[i].style.backgroundColor="pink"
+  topper[i].style.color="blue"
+
+   }
+
+ }
+
+ function average(){
+ const average=document.getElementsByTagName("h2")
+
+   for(let i=0;i<average.length;i++ ){
+  average[i].style.backgroundColor="green"
+  average[i].style.color="lightblue"
+
+   }
+
+ }
+ function weak(){
+ const weak=document.getElementsByTagName("h3")
+
+   for(let i=0;i<weak.length;i++ ){
+  weak[i].style.backgroundColor="purple"
+weak[i].style.color="white"
+
+   }
+
+ }
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

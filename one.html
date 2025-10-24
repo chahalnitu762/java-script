@@ -1,0 +1,144 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: DM serif Display;
+        text-align: center;
+        background-color: #000;
+        color: white;
+      }
+      #bdy {
+        height: 400px;
+        background-size: cover;
+        background-position: center;
+        transition: background-image 1s ease-in-out;
+      }
+      #row {
+        margin-top: 20px;
+      }
+      button {
+        padding: 10px;
+        font-size: 18px;
+        margin: 0 10px;
+        border: none;
+        background-color: #333;
+        color: #ffffff;
+      }
+      button:hover {
+        background-color: #555;
+      }
+      #caption {
+        margin-top: 20px;
+
+        font-size: 18px;
+        font-weight: 700;
+        color: #ffffff;
+        
+      }
+    </style>
+  </head>
+  <body>
+    <div id="bdy"></div>
+    <div id="row">
+      <button id="prev">prev</button>
+      <button id="pause">pause</button>
+      <button id="next">next</button>
+    </div>
+    <p id="caption"></p>
+
+    <script>
+      const images = [
+        {
+          src: "https://images.pexels.com/photos/1563356/pexels-photo-1563356.jpeg?cs=srgb&dl=pexels-thatguycraig000-1563356.jpg&fm=jpg",
+          caption: "my first image",
+        },
+        { src: "https://media.istockphoto.com/id/926196952/photo/beautiful-nature-background.jpg?s=612x612&w=0&k=20&c=yMtdCc_l1nR-f2FGfFtk6XZX6Mr5BrAsbnATukkwOVg=",
+         caption: "my second image" },
+        {
+          src: "https://images.pexels.com/photos/1895024/pexels-photo-1895024.jpeg?cs=srgb&dl=pexels-fox-58267-1895024.jpg&fm=jpg",
+          caption: "my third image",
+        },
+      ];
+
+
+
+
+
+
+
+      let index=0
+      let interval ;
+      let isPlaying=true
+
+     const bdy= document.getElementById("bdy")
+     const caption= document.getElementById("caption")
+
+    function showSlide(i){
+        bdy.style.backgroundImage=`url(${images[i].src})`
+        caption.innerText=images[i].caption
+
+    }
+
+  
+
+function nextSlide(){
+ index=(index+1)%images.length;
+ showSlide(index)
+}
+
+  
+
+
+function prevSlide(){
+  index=(index-1 +images.length)%images.length;
+  showSlide(index)
+}
+
+function startAutoSlide(){
+    interval=setInterval(nextSlide,2000)
+}
+
+
+
+
+function stopSlide(){
+    clearInterval(interval)
+
+}
+
+
+document.getElementById("next").addEventListener("click",()=>{
+    stopSlide()
+    nextSlide()
+})
+
+document.getElementById("prev").addEventListener("click",()=>{
+    stopSlide()
+    prevSlide()
+})
+
+document.getElementById("pause").addEventListener("click",()=>{
+    if(isPlaying){
+        stopSlide()
+        document.getElementById("pause").innerHTML="start"
+
+    }
+    else{
+        startAutoSlide()
+        document.getElementById("pause").innerText="pause"
+    }
+    isPlaying=!isPlaying
+})
+
+//intial call
+showSlide(index)
+startAutoSlide()
+
+
+    </script>
+  </body>
+</html>

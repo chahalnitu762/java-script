@@ -1,0 +1,164 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Image Slider</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: "Segoe UI", sans-serif;
+        text-align: center;
+        background-color: #000;
+        color: white;
+      }
+
+      #slider {
+        position: relative;
+        height: 400px;
+        overflow: hidden;
+      }
+
+      #bdy {
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: center;
+        transition: opacity 1s ease-in-out;
+      }
+
+      #caption {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(0, 0, 0, 0.6);
+        padding: 10px 20px;
+        border-radius: 8px;
+        font-size: 20px;
+        font-weight: bold;
+      }
+
+      #row {
+        margin-top: 20px;
+      }
+
+      button {
+        padding: 12px 20px;
+        font-size: 18px;
+        margin: 0 10px;
+        border: none;
+        border-radius: 8px;
+        background: linear-gradient(135deg, #444, #222);
+        color: #ffffff;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      button:hover {
+        background: linear-gradient(135deg, #666, #333);
+        transform: scale(1.05);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="slider">
+      <div id="bdy"></div>
+      <p id="caption"></p>
+    </div>
+
+    <div id="row">
+      <button id="prev">⏮ Prev</button>
+      <button id="pause">⏸ Pause</button>
+      <button id="next">⏭ Next</button>
+    </div>
+
+    <script>
+      const images = [
+        {
+          src: "https://images.pexels.com/photos/1563356/pexels-photo-1563356.jpeg?cs=srgb&dl=pexels-thatguycraig000-1563356.jpg&fm=jpg",
+          caption: "My First Image",
+        },
+        {
+          src: "https://media.istockphoto.com/id/926196952/photo/beautiful-nature-background.jpg?s=612x612&w=0&k=20&c=yMtdCc_l1nR-f2FGfFtk6XZX6Mr5BrAsbnATukkwOVg=",
+          caption: "My Second Image",
+        },
+        {
+          src: "https://images.pexels.com/photos/1895024/pexels-photo-1895024.jpeg?cs=srgb&dl=pexels-fox-58267-1895024.jpg&fm=jpg",
+          caption: "My Third Image",
+        },
+      ];
+
+      let index = 0;
+      let interval;
+      let isPlaying = true;
+
+      const bdy = document.getElementById("bdy");
+      const caption = document.getElementById("caption");
+
+      function showSlide(i) {
+        bdy.style.opacity = 0;
+        setTimeout(() => {
+          bdy.style.backgroundImage = `url(${images[i].src})`;
+          caption.innerText = images[i].caption;
+          bdy.style.opacity = 1;
+        }, 500);
+      }
+
+      function nextSlide() {
+        index = (index + 1) % images.length;
+        showSlide(index);
+      }
+
+      function prevSlide() {
+        index = (index - 1 + images.length) % images.length;
+        showSlide(index);
+      }
+
+      function startAutoSlide() {
+        interval = setInterval(nextSlide, 3000);
+      }
+
+      function stopSlide() {
+        clearInterval(interval);
+      }
+
+      document.getElementById("next").addEventListener("click", () => {
+        stopSlide();
+        nextSlide();
+      });
+
+      document.getElementById("prev").addEventListener("click", () => {
+        stopSlide();
+        prevSlide();
+      });
+
+      document.getElementById("pause").addEventListener("click", () => {
+        if (isPlaying) {
+          stopSlide();
+          document.getElementById("pause").innerText = "▶ Start";
+        } else {
+          startAutoSlide();
+          document.getElementById("pause").innerText = "⏸ Pause";
+        }
+        isPlaying = !isPlaying;
+      });
+
+      // Keyboard Controls
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowRight") {
+          stopSlide();
+          nextSlide();
+        } else if (e.key === "ArrowLeft") {
+          stopSlide();
+          prevSlide();
+        } else if (e.key === " ") {
+          document.getElementById("pause").click();
+        }
+      });
+
+      // Initial call
+      showSlide(index);
+      startAutoSlide();
+    </script>
+  </body>
+</html>

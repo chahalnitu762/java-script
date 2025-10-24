@@ -1,0 +1,58 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>html</title>
+</head>
+<body>
+    <button onclick="reset()">reset</button>
+    <h1 id ="first"onclick="test(1)">Tanu</h1>
+    <!-- <h1 onclick="test()" onmouseleave="reset()"> Tanu</h1> -->
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia odit autem pariatur error maiores possimus dolores vel veniam laborum. Velit aut nesciunt ut eos tempora nam distinctio autem saepe asperiores! Accusamus distinctio placeat, ipsam veniam quidem harum! In debitis praesentium distinctio explicabo porro expedita, harum maiores beatae vero. Possimus, quis!
+    <h1  id ="second"onclick="test(2)">Sahil</h1>
+Lorem ipsum dolor sit amet consectetur, adipisicing elit. Cum sed odit, expedita nostrum illo ab eum veritatis impedit cumque fugit rerum enim doloribus, molestias, aspernatur nesciunt exercitationem ut porro iusto.
+    <h1 id ="third"onclick="test(3)">Prachi</h1>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem, ipsa, inventore non placeat sunt labore consequatur doloribus ad nisi adipisci sed corporis eos voluptatibus suscipit. Aperiam quam iure illo molestias!
+
+<script>
+ function check(){
+   ch= confirm("Are you sure???")
+   if(ch==true)
+   window.location.href="float.html"
+//alert("thanks")
+else
+alert("try again");
+ }
+
+
+    function test( choice){
+        document.getElementById("First").innerHTML="nisha"
+        document.getElementById("second").innerHTML="nitu"
+        document.getElementById("third").innerHTML="isha"
+    
+    if(choice==1)
+    alert("we just clicked on Tanu button");
+if(choice==2)
+alert("we just clicked on Sahil button");
+if(choice==3)
+alert("we just clicked on Prachi button");
+
+    
+    
+        
+    }
+function reset(){
+    alert("thank you")
+}
+
+
+</script>
+
+
+
+
+
+
+</body>
+
+</html>

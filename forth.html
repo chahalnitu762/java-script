@@ -1,0 +1,65 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+
+
+    <h1>Sachin</h1>
+    <h1>Chinu</h1>
+    <h2>tanu</h2>
+    <h3>Anshul</h3>
+    <h2>Anil</h2>
+     <h3>Ronak</h3>
+     <h3>Deepa</h3>
+<h1>takoria</h1>
+
+
+     <button onclick="topper()">Topper</button>
+     <button  onclick="average()" >Average</button>
+     <button onclick="weak()">weak</button>
+
+
+
+     <script>
+
+
+function topper(){
+    
+   const topper= document.getElementsByTagName("h1")
+
+   for(let i=0;i<topper.length;i++ ){
+    topper[i].style.backgroundColor="red"
+    topper[i].style.color="blue"
+   }
+}
+
+
+function average(){
+  const average=document.getElementsByTagName("h2")
+
+  for(let i=0;i<average.length; i++){
+    average[i].style.backgroundColor="pink"
+     average[i].style.color="purple"
+  }
+}
+ function weak(){
+ const weak=document.getElementsByTagName("h3")
+
+ for(let i=0;i<weak.length;i++){
+    weak[i].style.backgroundColor="lightblue"
+     weak[i].style.color="white"
+
+ }
+ }
+
+
+
+     </script>
+
+</body>
+</html>

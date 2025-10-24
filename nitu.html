@@ -1,0 +1,255 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Image Slider</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: "Segoe UI", sans-serif;
+        background-color: #000;
+        color: black;
+        overflow-x: hidden;
+      }
+
+      #slider {
+        position: relative;
+        height: 400px;
+        overflow: hidden;
+      }
+
+      #bdy {
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: center;
+        transition: opacity 1s ease-in-out, transform 5s ease;
+      }
+
+      /* Overlay for readability */
+      #overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4), rgba(0,0,0,0.8));
+      }
+
+      #caption {
+        position: absolute;
+        bottom: 40px;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 12px 24px;
+        border-radius: 8px;
+        font-size: 22px;
+        font-weight: bold;
+        text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
+      }
+
+      /* Progress bar */
+      #progress {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        height: 5px;
+        background: #b7c9bd;
+        width: 0%;
+        transition: width linear;
+      }
+
+    /* Buttons */
+#row {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;  /* Center horizontally */
+  align-items: center;      /* Center vertically */
+  gap: 10px;                /* Gap between buttons */
+}
+
+
+      button {
+        padding:  10px;
+        font-size: 18px;
+        margin: 10px;
+        border: none;
+        border-radius: 8px;
+        background: linear-gradient(135deg, #444, #222);
+        color: #ffffff;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        
+        
+        
+      }
+
+      button:hover {
+        background: linear-gradient(135deg, #666, #333);
+        transform: scale(1.05);
+      }
+
+      /* Indicators */
+      #indicators {
+        position: absolute;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 8px;
+      }
+
+      .dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: gray;
+        cursor: pointer;
+        transition: transform 0.3s, background-color 0.3s;
+      }
+
+      .dot.active {
+        background: #111111;
+        transform: scale(1.2);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="slider">
+      <div id="bdy"></div>
+      <div id="overlay"></div>
+      <p id="caption"></p>
+      <div id="progress"></div>
+      <div id="indicators"></div>
+    </div>
+
+    <div id="row">
+      <button id="prev">⏮ Prev</button>
+      <button id="pause">⏸ Pause</button>
+      <button id="next">⏭ Next</button>
+    </div>
+
+    <script>
+      const images = [
+        {
+          src: "https://images.pexels.com/photos/1563356/pexels-photo-1563356.jpeg?cs=srgb&dl=pexels-thatguycraig000-1563356.jpg&fm=jpg",
+          caption: "My First Image",
+        },
+        {
+          src: "https://media.istockphoto.com/id/926196952/photo/beautiful-nature-background.jpg?s=612x612&w=0&k=20&c=yMtdCc_l1nR-f2FGfFtk6XZX6Mr5BrAsbnATukkwOVg=",
+          caption: "My Second Image",
+        },
+        {
+          src: "https://images.pexels.com/photos/1895024/pexels-photo-1895024.jpeg?cs=srgb&dl=pexels-fox-58267-1895024.jpg&fm=jpg",
+          caption: "My Third Image",
+        },
+      ];
+
+      let index = 0;
+      let interval;
+      let isPlaying = true;
+      const duration = 3000; // 3 sec per slide
+
+      const bdy = document.getElementById("bdy");
+      const caption = document.getElementById("caption");
+      const progress = document.getElementById("progress");
+      const indicators = document.getElementById("indicators");
+
+      // Create dots
+      images.forEach((_, i) => {
+        const dot = document.createElement("div");
+        dot.classList.add("dot");
+        dot.addEventListener("click", () => {
+          stopSlide();
+          index = i;
+          showSlide(index);
+        });
+        indicators.appendChild(dot);
+      });
+
+      function showSlide(i) {
+        bdy.style.opacity = 0;
+        setTimeout(() => {
+          bdy.style.backgroundImage = `url(${images[i].src})`;
+          caption.innerText = images[i].caption;
+          bdy.style.opacity = 1;
+          resetProgress();
+          updateDots();
+        }, 500);
+      }
+
+      function nextSlide() {
+        index = (index + 1) % images.length;
+        showSlide(index);
+      }
+
+      function prevSlide() {
+        index = (index - 1 + images.length) % images.length;
+        showSlide(index);
+      }
+
+      function startAutoSlide() {
+        interval = setInterval(nextSlide, duration);
+        resetProgress();
+      }
+
+      function stopSlide() {
+        clearInterval(interval);
+        progress.style.width = "0%";
+      }
+
+      function resetProgress() {
+        progress.style.transition = "none";
+        progress.style.width = "0%";
+        setTimeout(() => {
+          progress.style.transition = `width ${duration}ms linear`;
+          progress.style.width = "100%";
+        }, 50);
+      }
+
+      function updateDots() {
+        document.querySelectorAll(".dot").forEach((dot, i) => {
+          dot.classList.toggle("active", i === index);
+        });
+      }
+
+      // Controls
+      document.getElementById("next").addEventListener("click", () => {
+        stopSlide();
+        nextSlide();
+      });
+
+      document.getElementById("prev").addEventListener("click", () => {
+        stopSlide();
+        prevSlide();
+      });
+
+      document.getElementById("pause").addEventListener("click", () => {
+        if (isPlaying) {
+          stopSlide();
+          document.getElementById("pause").innerText = "▶ Start";
+        } else {
+          startAutoSlide();
+          document.getElementById("pause").innerText = "⏸ Pause";
+        }
+        isPlaying = !isPlaying;
+      });
+
+      // Keyboard
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowRight") {
+          stopSlide();
+          nextSlide();
+        } else if (e.key === "ArrowLeft") {
+          stopSlide();
+          prevSlide();
+        } else if (e.key === " ") {
+          document.getElementById("pause").click();
+        }
+      });
+
+      // Init
+      showSlide(index);
+      startAutoSlide();
+    </script>
+  </body>
+</html>

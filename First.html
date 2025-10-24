@@ -1,0 +1,68 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+
+
+    </style>
+</head>
+<body>
+    
+<h1 id="i1">Sachin</h1>
+<h1 id="i2">Manjeet</h1>
+<h1 id="i3">Ronak</h1>
+<h1 id="i4">Anil Sharma</h1>
+<h1 id="i5">Tanu</h1>
+
+
+
+<marquee behavior="" direction="up">My nme is Tanu</marquee>
+
+
+
+<button onclick="color()">Color</button>
+<button onclick="Size()">Size</button>
+<button onclick="Change()">Change</button>
+<button onclick="Reset()">Reset</button>
+
+
+<script>
+
+function color(){
+    document.getElementById("i1").style.backgroundColor="red"
+    document.getElementById("i3").style.backgroundColor="green"
+     document.getElementById("i2").style.backgroundColor="red"
+    document.getElementById("i4").style.backgroundColor="green"
+
+}
+
+function Size(){
+    document.getElementById("i1").style.fontSize="42px"
+    document.getElementById("i2").style.color="red"
+    document.getElementById("i3").style.marginTop="100px"
+}
+
+function Change(){
+    document.getElementById("i1").innerHTML="Takoria"
+     document.getElementById("i2").innerHTML="Bansal"
+      document.getElementById("i3").innerHTML="Parsad"
+       document.getElementById("i4").innerHTML="Mittal"
+        document.getElementById("i5").innerHTML="Ambani"
+}
+
+
+function Reset(){
+     document.getElementById("i1").innerHTML="Sachin"
+      document.getElementById("i2").innerHTML="Manjeet"
+
+}
+
+</script>
+
+
+
+</body>
+</html>
